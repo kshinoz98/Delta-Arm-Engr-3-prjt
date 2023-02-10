@@ -9,4 +9,6 @@ A delta robot is a type of parallel robot that consists of three arms connected 
 <p align="center">
   <img height="200" src="https://thumbs.gfycat.com/ElasticUnderstatedErin-max-1mb.gif">
  
-  and anything that sort of looks like that. T
+  and anything that sort of looks like that.
+
+  
