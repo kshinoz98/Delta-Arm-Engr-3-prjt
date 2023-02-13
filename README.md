@@ -44,7 +44,7 @@ The code turns Theta 1, 2 and 3 into steps for the stepper, then steps the diffe
 
 Stepper stepper1(MOTOR_STEPS, AIN1A, AIN2A, BIN1A, BIN2A);//creating Stepper as an object
 
-DeltaKinematics DK(200, 300, 25, 10);//measurments of the Delta arm, making it an object. Measurment order:
+DeltaKinematics DK(200, 300, 25, 10);//measurments of the Delta arm, making it an object. Measurment order:  DeltaKinematics(double ArmLength,double RodLength,double BassTri,double PlatformTri)
 
 
 int step1Rot = 0;//definings variables
