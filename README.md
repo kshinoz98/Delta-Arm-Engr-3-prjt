@@ -10,12 +10,16 @@ A delta robot is a type of parallel robot that consists of three arms connected 
   <img height="200" src="https://thumbs.gfycat.com/ElasticUnderstatedErin-max-1mb.gif">
  
   and anything that sort of looks like that.
+  
 #CODE
 The original idea for the code was a three step process.
+  
 ##ONE
 The code recieves inputs and maps the potentiometer values.
+  
 ##TWO
 The code uses the DeltaKinematics library and calculates Theta 1, 2, and 3 from X, Y, and Z.
+  
 ##THREE
 The code turns Theta 1, 2 and 3 into steps for the stepper, then steps the difference between the previous and current output.
 ```C++
