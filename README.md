@@ -132,4 +132,4 @@ void roundDegrees() {//this whole block of code is here because otherwise the mo
 }
 ```
 # Delta Arm Kinematics
-The Delta arm uses kinematics to figure out how much the arms have to bend to locate the end arm position. I looked at this project optomistically by expecting myself to figure these out. I couldn't, but I found the useful library [Delta Kinematics](https://github.com/tinkersprojects/Delta-Kinematics-Library)
+The Delta arm uses kinematics to figure out how much the arms have to bend to locate the end arm position. I looked at this project optomistically by expecting myself to figure these out. I couldn't, but I found the useful library [Delta Kinematics](https://github.com/tinkersprojects/Delta-Kinematics-Library) which explains exactly how a delta arm works and how his calculations save you time.
