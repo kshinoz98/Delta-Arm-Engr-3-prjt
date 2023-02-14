@@ -145,7 +145,6 @@ Wiring involves three steppers(NEMA 17), three stepper motor drivers(DRV8833), t
   ```CPP
    Serial.println(String(p1) + "," + String(p2) + "," + String(p3));
   ```
-  , or, 
   ```CPP
   step1Rot = int((DK.a));
   ```
