@@ -135,3 +135,10 @@ void roundDegrees() {//this whole block of code is here because otherwise the mo
 The Delta arm uses kinematics to figure out how much the arms have to bend to locate the end arm position. I looked at this project optomistically by expecting myself to figure these out. I couldn't, but I found the useful library [Delta Kinematics](https://github.com/tinkersprojects/Delta-Kinematics-Library) which explains exactly how a delta arm works and how his calculations save you time.
 # Wiring
 Wiring involves three steppers(NEMA 17), three stepper motor drivers(DRV8833), three potentiometers, a switch, a button, and an LED if you want. We can hard wire a LED be attaching a 220 omh resistor from the short end of the LED to ground, and the long end to 3.3v or 5v. The potentiometers can have all of their grounds and 5v connected to save space and pins, it also decreases the possobility of a connection issue. The switch connects from a 9v battery to the  VM pin on the arduino. The steppers I used have four colors red, grey, green, and yellow. Look at image for reference.
+# Problems to prevent
+### *Using pins 1 and 0 on the Arduino Uno
+### *COM port errors
+### *H-Bridge shorting detection
+### *Converting Variables
+### *Arm length vs Stepper strength
+[## Pins 1 and 0](*Using pins 1 and 0 on the Arduino Uno)
