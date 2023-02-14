@@ -151,3 +151,9 @@ Wiring involves three steppers(NEMA 17), three stepper motor drivers(DRV8833), t
   ```
   This is just converting variables. A string con be any combination of characters, the computer can print that easier on the serial monitor. An integer is always a whole number, that means that by converting DK.a to an integer we can assure that the stepper motor can step that many steps and not try a half step without micro stepping equipment.
 ### *Arm length vs Stepper strength
+# The micro stepping fail
+  ## If you're going to try micro stepping I recommend three things:
+  ### [Use this library](https://github.com/uivc/A4982StepperDriver)
+  ### [Use A4982's(Part of the library)](https://www.allegromicro.com/-/media/files/datasheets/a4982-datasheet.pdf)
+  ### Don't short them(and how)
+  I had access to four stepper A4982 stepper drivers. The first one happened to disapear... in a ball of smoke, but the others can be used to teach good lessons on what not to do. The second stepper driver said that the capacity was 12v for the driver, I cranked the power supply to 12v and nothing happened, slightly over and nothing happened. After the smoke fell, the problem was in the wiring of the motor, not the driver. Double check your wiring. The third was a code problem, I had ENBL and STEP mixed up on my code when I created my A4982 object, that means that the second the code tried to stop the motor, it sent a constant 12v into my STEP pin. Another one bites the dust. The last one taught me my final lesson on drivers and ultimatly forced me to drop micro stepping. I connected the blue and red rails on my breadboard backwards, initially it was a joke, until my teacher and I realized that 12v and GND dont mix very well. That not only ended my last A4982 but also an Arduino.
