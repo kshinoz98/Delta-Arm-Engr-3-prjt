@@ -22,7 +22,7 @@ The code uses the DeltaKinematics library and calculates Theta 1, 2, and 3 from 
   
 ### THREE
 The code turns Theta 1, 2 and 3 into steps for the stepper, then steps the difference between the previous and current output.
-```C++
+```CPP
 //I've included some serial.prints just in case you dont want to write it yourself, these are all the prints I had when evaluating the final project
 
 #include <DeltaKinematics.h>//importing libraries
@@ -137,8 +137,17 @@ The Delta arm uses kinematics to figure out how much the arms have to bend to lo
 Wiring involves three steppers(NEMA 17), three stepper motor drivers(DRV8833), three potentiometers, a switch, a button, and an LED if you want. We can hard wire a LED be attaching a 220 omh resistor from the short end of the LED to ground, and the long end to 3.3v or 5v. The potentiometers can have all of their grounds and 5v connected to save space and pins, it also decreases the possobility of a connection issue. The switch connects from a 9v battery to the  VM pin on the arduino. The steppers I used have four colors red, grey, green, and yellow. Look at image for reference.
 # Problems to prevent
 ### *Using pins 1 and 0 on the Arduino Uno
-### *COM port errors
+  The arduino uno is equipped with 14 pins, from 0 - 13, it also has 6 analog inputs. Pins 0 and 1 on the Arduino Uno are used for serial communication with the computer over the USB cable. Connecting things to these pins can cause interference between the use of serial and whatever other use you are making of them, that includes being able to upload sketches to the Arduino board.
 ### *H-Bridge shorting detection
+  For me, my H-Bridge created some magic smoke. I burned about 4 or 5 H-Bridges this project. To tell more subtle changes, you can look at the bottom , the black square may have a few extruding dots. That means its done for. Another way to tell is always heat.
 ### *Converting Variables
+  In the code, you'll notice lines like
+  ```CPP
+   Serial.println(String(p1) + "," + String(p2) + "," + String(p3));
+  ```
+  , or, 
+  ```CPP
+  step1Rot = int((DK.a));
+  ```
+  This is just converting variables. A string con be any combination of characters, the computer can print that easier on the serial monitor. An integer is always a whole number, that means that by converting DK.a to an integer we can assure that the stepper motor can step that many steps and not try a half step without micro stepping equipment.
 ### *Arm length vs Stepper strength
-[## Pins 1 and 0](*Using pins 1 and 0 on the Arduino Uno)
