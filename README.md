@@ -69,24 +69,30 @@ The code turns Theta 1, 2 and 3 into steps for the stepper, then steps the diffe
 #include <DeltaKinematics.h>//importing libraries
 #include <Arduino.h>
 #include <math.h>
-#include <Stepper.h>
+#include <Servo.h>
 
 //if you try to use both 1 and 0 pins you'll get an error, "Attpmpt 10/10". Don't do that.
-#define MOTOR_STEPS 200//amount of steps your motor can take(Base amount, if micro stepping, keep using this amt)
-
 #define Pot1 A3//defining pins
 #define Pot2 A4
 #define Pot3 A5
 
-#define AIN1A 2
-#define AIN2A 3
-#define BIN1A 12
-#define BIN2A 13
+#define servo1 3
+#define servo2 4
+#define servo3 5
+#define servo12 6
+#define servo22 7
+#define servo32 8
 
-Stepper stepper1(MOTOR_STEPS, AIN1A, AIN2A, BIN1A, BIN2A);//creating Stepper as an object
+#define MOTOR_STEPS 200
 
-DeltaKinematics DK(200, 300, 25, 10);//measurments of the Delta arm, making it an object. Measurment order:  DeltaKinematics(double ArmLength,double RodLength,double BassTri,double PlatformTri)
+Servo myservo1;  // create servo object to control a servo
+Servo myservo2;  // create servo object to control a servo
+Servo myservo3;  // create servo object to control a servo
+Servo myservo12;  // create servo object to control a servo
+Servo myservo22;  // create servo object to control a servo
+Servo myservo32;  // create servo object to control a servo
 
+DeltaKinematics DK(200, 300, 25, 10);//measurments of the Delta arm, making it an object. Measurment order:
 
 int step1Rot = 0;//definings variables
 int step2Rot = 0;
@@ -100,73 +106,74 @@ int a1Amt = 0;
 int a2Amt = 0;
 int a3Amt = 0;
 
-
 void setup()
 {
   Serial.begin(9600);//starting serial monitor
-  stepper1.setSpeed(60);//setting the RotationsPerMinute on the stepper
+  myservo1.attach(servo1);  // attaches the servo on pin 9 to the servo object
+  myservo2.attach(servo2);  // attaches the servo on pin 9 to the servo object
+  myservo3.attach(servo3);  // attaches the servo on pin 9 to the servo object
+  myservo12.attach(servo12);  // attaches the servo on pin 9 to the servo object
+  myservo22.attach(servo22);  // attaches the servo on pin 9 to the servo object
+  myservo32.attach(servo32);  // attaches the servo on pin 9 to the servo object
 }
 
 void loop() {
-
-  Serial.println("XYZ Print VALUES:");
+  
   XYZ();
-
-  Serial.println("reoundDegrees Print VALUES:");
-  roundDegrees();
-
-  Serial.println("stepperMove Print VALUES:");
-  stepperMove();
+    
+  roundDegrees();  
+   
+  stepperMove();  
   //moves stepper
-
+  
   delay(1000);
 }
-
-
-void stepperMove() {
-  Serial.println(String(b1Amt) + "," + String(a1Amt));
-
+void stepperMove() {  
+  Serial.println(String(b1Amt) + "," + String(a1Amt) + "---" + String(b2Amt) + "," + String(a2Amt) + "---" + String(b3Amt) + "," + String(a3Amt));
+  
   int d1 = -1 * (b1Amt - a1Amt);//final math to find differnce in values and step the difference
-
-  Serial.println(String(d1) + ",");
-
-  stepper1.step(d1);//stepping motors
+  int d2 = -1 * (b2Amt - a2Amt);
+  int d3 = -1 * (b3Amt - a3Amt);
+  
+  Serial.println(String(d1) + "," + String(d2) + "," + String(d3));
+  int o1 = map(d1, 0, 180, 180, 0);
+  int o2 = map(d2, 0, 180, 180, 0);
+  int o3 = map(d3, 0, 180, 180, 0);
+  myservo1.write(d1);//stepping motors
+  myservo2.write(d2);
+  myservo3.write(d3);
+  myservo12.write(o1);//stepping motors
+  myservo22.write(o2);
+  myservo32.write(o3);
 }
-
-
-
 void XYZ() {
-
+  
   int p1 = analogRead(Pot1);//input from potentiometers
   int p2 = analogRead(Pot2);
   int p3 = analogRead(Pot3);
-
-  DK.x = map(p1, 0, 1024, -130, 130);//mapping inputs
-  DK.y = map(p2, 0, 1024, -130, 140);
-  DK.z = map(p3, 0, 1024, -430, -160);
-
+  
+  DK.x = map(p1, 0, 1024, -150, 150);//mapping inputs
+  DK.y = map(p2, 0, 1024, -150, 150);
+  DK.z = map(p3, 0, 1024, -400, -100);
+  
   DK.inverse();//This function is part of the DK library, its whole job is to turn X, Y, and Z into THETA1 THETA2 and THETA3
-
+  
   Serial.println(String(p1) + "," + String(p2) + "," + String(p3));
   Serial.println(String(DK.x) + "," + String(DK.y) + "," + String(DK.z));
   Serial.println(String(DK.a) + "," + String(DK.b) + "," + String(DK.c));
 
 }
-
-
-
 //idea for before and After amts comes from this exe code
 void roundDegrees() {//this whole block of code is here because otherwise the motors dont know what to do with a valuse thats not on their list of allowed values(Whole numbers from 1 to MOTOR_STEPS)
-  //therefore we multiply the variable by 200 and truncate its value. this makes it devisable by 200, then we divide it by 200.
-
+                     //therefore we multiply the variable by 200 and truncate its value. this makes it devisable by 200, then we divide it by 200.
   b1Amt = step1Rot;
   b2Amt = step2Rot;
   b3Amt = step3Rot;
-
+  
   step1Rot = int((DK.a));
   step2Rot = int((DK.b));
   step3Rot = int((DK.c));
-  
+
   a1Amt = step1Rot;
   a2Amt = step2Rot;
   a3Amt = step3Rot;
