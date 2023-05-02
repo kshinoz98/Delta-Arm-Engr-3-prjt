@@ -21,7 +21,8 @@ There's not too much to say on the CAD except that I would advise anyone buildin
 ## Our Build
    ### The Base
    Our robot arm was obviously going to be too large to economically make out of laser cut or 3d printed pieces, so we used bar pieces from a robotics kit, and sliced up an old table to make the top.
-   Insert image here of bar base and then table base
+   
+   <img height="200" src="https://user-images.githubusercontent.com/113209502/235755807-2ba9c510-cda3-485d-b9b5-8f193df80365.jpeg"> 
    Here is it without the top,                     and with the top
    
    Perhaps it was a bit excessive, but it was pretty fun doing some woodworking.
